@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trader Master — Analisa Trading Saham, Forex & Gold | Rekomendasi Akurat</title>
+  <meta name="description" content="Platform analisa trading terlengkap: saham IHSG, forex, dan gold. Dapatkan rekomendasi buy/sell akurat, sinyal trading real-time, dan belajar dari mentor profesional.">
+  <meta name="keywords" content="analisa trading, rekomendasi saham, trading forex, trading gold, belajar trading, sinyal trading, analisa teknikal, IHSG, komunitas trader">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Trader Master — Analisa Trading Saham, Forex & Gold">
+  <meta property="og:description" content="Rekomendasi trading akurat, sinyal real-time, dan edukasi dari mentor profesional.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="id_ID">
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Trader Master",
+    "applicationCategory": "FinanceApplication",
+    "description": "Platform analisa trading saham, forex, dan gold dengan rekomendasi akurat",
+    "offers": {
+      "@type": "Offer",
+      "name": "Trader Master Basic",
+      "price": "0",
+      "priceCurrency": "IDR"
+    }
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1a56db;
+      --primary-dark: #1e40af;
+      --gold: #e6a817;
+      --red: #dc2626;
+      --green: #16a34a;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* ========== NAV ========== */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.95);
+    }
+    nav .container {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo { font-size: 1.4rem; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: -0.5px; }
+    .nav-cta {
+      background: var(--primary); color: var(--white); border: none;
+      padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block;
+    }
+    .nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    /* ========== HERO ========== */
+    .hero {
+      padding: 80px 0 60px; text-align: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1a56db 100%);
+      color: var(--white); position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 30% 50%, rgba(26,86,219,0.3) 0%, transparent 60%);
+      animation: pulse 8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    .hero .container { position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.15;
+      margin-bottom: 20px; letter-spacing: -1px;
+    }
+    .hero h1 span { color: var(--gold); }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem); max-width: 680px; margin: 0 auto 32px;
+      color: rgba(255,255,255,0.85); line-height: 1.7;
+    }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary, .btn-secondary {
+      padding: 14px 36px; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; display: inline-block; text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--gold); color: #0f172a; border: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(230,168,23,0.4); }
+    .btn-secondary {
+      background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.5);
+    }
+    .btn-secondary:hover { border-color: var(--white); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 40px; justify-content: center; margin-top: 48px; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat .num { font-size: 2rem; font-weight: 900; color: var(--gold); }
+    .hero-stat .label { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+
+    /* ========== PROBLEM ========== */
+    .section { padding: 80px 0; }
+    .section-header { text-align: center; margin-bottom: 48px; }
+    .section-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 12px; }
+    .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+
+    .problems { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .problem-card {
+      background: var(--white); padding: 32px; border-radius: var(--radius);
+      border: 1px solid var(--border); transition: all 0.2s;
+    }
+    .problem-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .problem-icon { font-size: 2rem; margin-bottom: 12px; }
+    .problem-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+    .problem-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* ========== SOLUTION ========== */
+    .solution { background: var(--white); }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
+    .feature-card { padding: 28px; border: 1px solid var(--border); border-radius: var(--radius); transition: all 0.2s; }
+    .feature-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+    .feature-icon { width: 48px; height: 48px; background: rgba(26,86,219,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 16px; }
+    .feature-card h3 { font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-muted); font-size: 0.92rem; }
+
+    /* ========== INSTRUMENTS ========== */
+    .instruments { background: #f1f5f9; }
+    .instrument-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .instrument-card {
+      background: var(--white); border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border); transition: all 0.2s;
+    }
+    .instrument-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .instrument-header { padding: 24px 28px 0; }
+    .instrument-header h3 { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+    .instrument-header .tag { font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 700; }
+    .tag-saham { background: rgba(26,86,219,0.1); color: var(--primary); }
+    .tag-forex { background: rgba(22,163,74,0.1); color: var(--green); }
+    .tag-gold { background: rgba(230,168,23,0.15); color: #b8860b; }
+    .instrument-body { padding: 16px 28px 28px; }
+    .instrument-body p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px; }
+
+    /* ========== TESTIMONIALS ========== */
+    .testimonials { background: var(--white); }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .testimonial-card {
+      background: var(--bg); padding: 28px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .testimonial-card .stars { color: var(--gold); font-size: 1rem; margin-bottom: 12px; }
+    .testimonial-card .quote { font-style: italic; color: var(--text); margin-bottom: 16px; font-size: 0.95rem; }
+    .testimonial-card .author { font-weight: 700; font-size: 0.9rem; }
+    .testimonial-card .author-role { color: var(--text-muted); font-size: 0.8rem; }
+
+    /* ========== PRICING / OFFER ========== */
+    .pricing { background: #f1f5f9; }
+    .pricing-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .pricing-card {
+      background: var(--white); padding: 36px 28px; border-radius: var(--radius);
+      border: 1px solid var(--border); text-align: center; transition: all 0.2s;
+    }
+    .pricing-card.featured { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary); position: relative; }
+    .pricing-card.featured::before {
+      content: 'POPULER'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: var(--white); font-size: 0.7rem; font-weight: 800;
+      padding: 4px 16px; border-radius: 20px; letter-spacing: 0.5px;
+    }
+    .pricing-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
+    .pricing-card .price { font-size: 2.5rem; font-weight: 900; margin: 16px 0; color: var(--primary); }
+    .pricing-card .price small { font-size: 0.9rem; font-weight: 400; color: var(--text-muted); }
+    .pricing-card ul { list-style: none; text-align: left; margin: 24px 0; }
+    .pricing-card li { padding: 8px 0; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; color: var(--text); }
+    .pricing-card li::before { content: '✓'; color: var(--green); font-weight: 700; }
+    .pricing-btn {
+      width: 100%; padding: 14px; border-radius: 10px; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: all 0.2s; border: none; display: inline-block; text-decoration: none;
+    }
+    .pricing-btn.primary { background: var(--primary); color: var(--white); }
+    .pricing-btn.primary:hover { background: var(--primary-dark); }
+    .pricing-btn.outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .pricing-btn.outline:hover { background: rgba(26,86,219,0.05); }
+
+    /* ========== CTA ========== */
+    .cta-section {
+      background: linear-gradient(135deg, #0f172a 0%, #1a56db 100%);
+      color: var(--white); text-align: center; padding: 80px 0;
+    }
+    .cta-section h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; margin-bottom: 16px; }
+    .cta-section p { color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 32px; font-size: 1.05rem; }
+    .cta-section .btn-primary { font-size: 1.1rem; padding: 16px 40px; }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: #0f172a; color: rgba(255,255,255,0.7); padding: 48px 0 24px;
+      font-size: 0.85rem;
+    }
+    footer .container { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; }
+    footer h4 { color: var(--white); margin-bottom: 12px; font-size: 0.95rem; }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; display: block; margin-bottom: 6px; }
+    footer a:hover { color: var(--white); }
+    footer .copyright { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 40px; text-align: center; width: 100%; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .hero-stats { gap: 24px; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .hero { padding: 60px 0 48px; }
+      .section { padding: 56px 0; }
+      footer .container { flex-direction: column; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a href="#" class="logo">📊 Trader Master</a>
+    <a href="#mulai" class="nav-cta">Mulai Gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>Analisa Trading <span>Akurat</span>,<br>Profit Lebih Konsisten</h1>
+    <p>Platform analisa saham, forex, dan gold terlengkap di Indonesia. Dapatkan rekomendasi buy/sell, sinyal trading real-time, dan belajar langsung dari mentor profesional — semua dalam satu tempat.</p>
+    <div class="hero-buttons">
+      <a href="#mulai" class="btn-primary">🚀 Coba Gratis Sekarang</a>
+      <a href="#market" class="btn-secondary">📈 Lihat Analisa Hari Ini</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">50K+</div>
+        <div class="label">Trader Aktif</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">85%</div>
+        <div class="label">Akurasi Sinyal</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">24/7</div>
+        <div class="label">Update Market</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Kenapa Trader Sering Rugi?</h2>
+      <p>Trading tanpa analisa yang tepat seperti berlayar tanpa kompas. Ini masalah yang sering dialami trader Indonesia.</p>
+    </div>
+    <div class="problems">
+      <div class="problem-card">
+        <div class="problem-icon">😵</div>
+        <h3>Bingung Entry & Exit</h3>
+        <p>Mau beli takut turun, mau jual takut naik. Tanpa sinyal yang jelas, keputusan trading jadi spekulasi semata.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📉</div>
+        <h3>Analisa Tidak Konsisten</h3>
+        <p>Pakai 5 indikator berbeda, semua kasih sinyal beda. Akhirnya? Portofolio merah terus.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🕐</div>
+        <h3>Nggak Punya Waktu Pantau</h3>
+        <p>Kerja 9-to-5, nggak sempat mantau chart seharian. Pas balik, harga udah kemana-mana.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💰</div>
+        <h3>FOMO & Emotional Trading</h3>
+        <p>Lihat orang cuan, ikut-ikutan beli di puncak. Besoknya? -20% dan nyesel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="market">
+  <div class="container">
+    <div class="section-header">
+      <h2>Satu Platform, Semua Solusi Trading</h2>
+      <p>Trader Master menggabungkan analisa teknikal, fundamental, dan sentimen market dalam satu dashboard yang mudah dipahami.</p>
+    </div>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Sinyal Buy/Sell Akurat</h3>
+        <p>Rekomendasi entry & exit berdasarkan multi-timeframe analysis. Support & resistance yang terukur, bukan tebak-tebakan.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Analisa Teknikal Lengkap</h3>
+        <p>Pattern recognition, trend analysis, volume profile, Fibonacci, moving averages — semua indikator dalam satu layar.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3>Alert Real-Time</h3>
+        <p>Notifikasi langsung ke HP saat harga menyentuh level kunci. Nggak perlu mantau chart 24 jam.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Edukasi & Mentoring</h3>
+        <p>Belajar dari mentor profesional lewat webinar mingguan, modul belajar, dan sesi tanya jawab langsung.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Market Scanner</h3>
+        <p>AI scanning ratusan saham setiap hari, kasih tahu mana yang siap breakout dan mana yang harus dihindari.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Komunitas Trader</h3>
+        <p>Diskusi langsung dengan 50.000+ trader lain. Sharing strategi, tanya jawab, dan belajar bareng.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUMENTS -->
+<section class="instruments" id="mulai">
+  <div class="container">
+    <div class="section-header">
+      <h2>Trading Semua Instrumen Dalam Satu Platform</h2>
+      <p>Analisa saham, forex, dan gold — semua tersedia dengan akurasi tinggi.</p>
+    </div>
+    <div class="instrument-grid">
+      <div class="instrument-card">
+        <div class="instrument-header">
+          <h3>📈 Saham IHSG <span class="tag tag-saham">SAHAM</span></h3>
+        </div>
+        <div class="instrument-body">
+          <p>Rekomendasi saham harian & mingguan untuk LQ45, IDX30, dan saham potensial lainnya. Lengkap dengan level entry, target profit, dan cut loss.</p>
+        </div>
+      </div>
+      <div class="instrument-card">
+        <div class="instrument-header">
+          <h3>💱 Forex <span class="tag tag-forex">FOREX</span></h3>
+        </div>
+        <div class="instrument-body">
+          <p>Analisa major pairs: EUR/USD, GBP/USD, USD/JPY, AUD/USD. Sinyal trading berdasarkan price action dan key level harian.</p>
+        </div>
+      </div>
+      <div class="instrument-card">
+        <div class="instrument-header">
+          <h3>🥇 Gold / XAUUSD <span class="tag tag-gold">EMAS</span></h3>
+        </div>
+        <div class="instrument-body">
+          <p>Analisa gold spot harian dengan strategi yang sudah teruji. Termasuk analisa fundamental — data ekonomi, suku bunga The Fed, dan geopolitik.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <h2>Apa Kata Trader Kami?</h2>
+      <p>Bergabung dengan 50.000+ trader yang sudah profit konsisten.</p>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"Dulu saya sering loss karena nggak punya acuan entry. Sejak pakai Trader Master, profit saya konsisten 15-20% per bulan."</p>
+        <div class="author">Rizky P.</div>
+        <div class="author-role">Trader Saham, Jakarta</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"Sinyal gold-nya juara. Saya kerja kantoran, nggak sempat analisa sendiri. Alert dari Trader Master bikin saya tetap bisa trading."</p>
+        <div class="author">Maya S.</div>
+        <div class="author-role">Trader Gold, Surabaya</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <p class="quote">"Komunitasnya bener-bener supportif. Mentor-mentornya profesional. Saya belajar banyak dalam 3 bulan pertama."</p>
+        <div class="author">Andi W.</div>
+        <div class="author-role">Trader Forex, Bandung</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2>Mulai Trading dengan Lebih Percaya Diri</h2>
+      <p>Pilih paket yang sesuai dengan kebutuhan trading Anda. Semua paket bisa dimulai gratis.</p>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <h3>🆓 Basic</h3>
+        <p style="color: var(--text-muted);">Untuk pemula yang mau belajar</p>
+        <div class="price">Gratis <small>selamanya</small></div>
+        <ul>
+          <li>Analisa saham harian (3 saham)</li>
+          <li>Signal basic (1x/hari)</li>
+          <li>Akses komunitas Telegram</li>
+          <li>Modul belajar dasar</li>
+        </ul>
+        <a href="#" class="pricing-btn outline">Mulai Gratis</a>
+      </div>
+      <div class="pricing-card featured">
+        <h3>⭐ Pro</h3>
+        <p style="color: var(--text-muted);">Untuk trader aktif</p>
+        <div class="price">Rp 199K <small>/bulan</small></div>
+        <ul>
+          <li>Analisa lengkap (saham + forex + gold)</li>
+          <li>Signal real-time (3x/hari)</li>
+          <li>Alert harga via WhatsApp/Telegram</li>
+          <li>Webinar mingguan + Q&A mentor</li>
+          <li>AI Market Scanner</li>
+          <li>Level entry, TP, dan cut loss detail</li>
+        </ul>
+        <a href="#" class="pricing-btn primary">Pilih Pro</a>
+      </div>
+      <div class="pricing-card">
+        <h3>💎 Premium</h3>
+        <p style="color: var(--text-muted);">Untuk trader serius</p>
+        <div class="price">Rp 499K <small>/bulan</small></div>
+        <ul>
+          <li>Semua fitur Pro</li>
+          <li>Mentoring 1-on-1 (2x/bulan)</li>
+          <li>Analisa custom portofolio</li>
+          <li>Signal unlimited + priority alert</li>
+          <li>Early access event & seminar</li>
+          <li>Private Discord VIP</li>
+        </ul>
+        <a href="#" class="pricing-btn outline">Pilih Premium</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Siap Trading Lebih Cerdas Hari Ini?</h2>
+    <p>Gabung dengan 50.000+ trader yang sudah menggunakan Trader Master untuk analisa yang lebih akurat dan profit yang lebih konsisten.</p>
+    <a href="#mulai" class="btn-primary">🚀 Mulai Gratis Sekarang</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div>
+      <h4>📊 Trader Master</h4>
+      <p style="max-width: 240px;">Platform analisa trading saham, forex, dan gold terlengkap di Indonesia.</p>
+    </div>
+    <div>
+      <h4>Layanan</h4>
+      <a href="#">Analisa Saham</a>
+      <a href="#">Sinyal Forex</a>
+      <a href="#">Trading Gold</a>
+      <a href="#">Edukasi Trading</a>
+    </div>
+    <div>
+      <h4>Perusahaan</h4>
+      <a href="#">Tentang Kami</a>
+      <a href="#">Karir</a>
+      <a href="#">Kontak</a>
+      <a href="#">Kebijakan Privasi</a>
+    </div>
+    <div>
+      <h4>Komunitas</h4>
+      <a href="#">Telegram</a>
+      <a href="#">Discord</a>
+      <a href="#">Instagram</a>
+      <a href="#">YouTube</a>
+    </div>
+    <p class="copyright">© 2026 Trader Master. All rights reserved. Trading mengandung risiko. Hasil masa lalu tidak menjamin hasil masa depan.</p>
+  </div>
+</footer>
+
+</body>
+</html>
