@@ -839,14 +839,16 @@
 
     // Fallback: natural conversational responses
     lastCat = null;
+    const waNumber = '082173716996';
+    const waLink = 'https://wa.me/6282173716996';
     const fallbacks = [
-      "Hmm, menarik nih pertanyaannya! 🤔<br><br>Sayangnya aku belum punya jawaban spesifik untuk itu. Tapi aku jago soal trading lho — dari analisa teknikal, cara mulai, sampai psikologi trading. Mau coba tanya yang lain?",
-      "Waduh, itu di luar keahlianku untuk saat ini 😅<br><br>Aku spesialisasinya di dunia trading & investasi. Kamu bisa tanya:<br>📊 Analisa teknikal & indikator<br>📈 Cara mulai trading (saham/forex/crypto/gold)<br>🛡️ Risk management<br>🧠 Psikologi & mindset trader<br>📰 Market update terkini<br><br>Atau... kalau cuma pengen ngobrol santai juga boleh kok!",
-      "Pertanyaan bagus! Tapi jujur, aku lebih jago kalau udah masuk ranah trading 😄<br><br>Coba deh tanya soal analisa teknikal, strategi, atau info market — aku bisa jelasin dengan detail. Atau cek <a href='/blog/'>blog</a> kami untuk analisa harian!",
-      "Hehe, that's a tough one! 🙈<br><br>Kemampuanku memang masih terbatas di dunia trading untuk saat ini. Tapi aku terus belajar kok! Tanya aja soal market atau trading — dijamin aku bisa bantu. Gimana, ada yang pengen didiskusiin?",
-      "Nah, ini pertanyaan yang bikin mikir... 😅<br><br>Untuk sekarang, keahlianku fokus di analisa trading & edukasi market. Mulai dari teknikal, fundamental, cara entry, sampai manajemen risiko — semuanya aku kuasai. Mau coba topik yang lain? Atau langsung cek <a href='/blog/'>blog Trader Master</a> aja!",
-      "Wkwk, random banget! 😆 Tapi oke, aku hargai kejujuran ini.<br><br>Sayangnya aku belum bisa jawab di luar ranah trading & investasi. Tapi kalau kamu penasaran soal market hari ini, cara analisa saham, atau strategi trading — langsung aja tanya!",
-      "Hmm, good question actually! 🤷<br><br>Tapi aku mesti jujur: spesialisasiku baru di dunia trading. Kalau ada yang mau ditanya soal saham, forex, crypto, gold, atau analisa teknikal — aku siap! Untuk yang lain... mungkin next time ya 😄"
+      "Hmm, menarik nih pertanyaannya! 🤔<br><br>Sayangnya aku belum punya jawaban spesifik untuk itu. Tapi aku jago soal trading lho — dari analisa teknikal, cara mulai, sampai psikologi trading. Mau coba tanya yang lain?<br><br>Atau kalau butuh bantuan lebih lanjut, langsung aja hubungi <a href='" + waLink + "'>" + waNumber + "</a> via WhatsApp!",
+      "Waduh, itu di luar keahlianku untuk saat ini 😅<br><br>Aku spesialisasinya di dunia trading & investasi. Kamu bisa tanya:<br>📊 Analisa teknikal & indikator<br>📈 Cara mulai trading (saham/forex/crypto/gold)<br>🛡️ Risk management<br>🧠 Psikologi & mindset trader<br>📰 Market update terkini<br><br>Atau... kalau cuma pengen ngobrol santai juga boleh kok! Kalau ada yang urgent, WhatsApp aja ke <a href='" + waLink + "'>" + waNumber + "</a>.",
+      "Pertanyaan bagus! Tapi jujur, aku lebih jago kalau udah masuk ranah trading 😄<br><br>Coba deh tanya soal analisa teknikal, strategi, atau info market — aku bisa jelasin dengan detail. Atau cek <a href='/blog/'>blog</a> kami untuk analisa harian!<br><br>Butuh bantuan personal? Hubungi <a href='" + waLink + "'>" + waNumber + "</a> ya!",
+      "Hehe, that's a tough one! 🙈<br><br>Kemampuanku memang masih terbatas di dunia trading untuk saat ini. Tapi aku terus belajar kok! Tanya aja soal market atau trading — dijamin aku bisa bantu. Gimana, ada yang pengen didiskusiin?<br><br>Kalau butuh ngobrol langsung, silakan WA <a href='" + waLink + "'>" + waNumber + "</a>.",
+      "Nah, ini pertanyaan yang bikin mikir... 😅<br><br>Untuk sekarang, keahlianku fokus di analisa trading & edukasi market. Mulai dari teknikal, fundamental, cara entry, sampai manajemen risiko — semuanya aku kuasai. Mau coba topik yang lain? Atau langsung cek <a href='/blog/'>blog Trader Master</a> aja!<br><br>Untuk pertanyaan lebih lanjut, hubungi <a href='" + waLink + "'>" + waNumber + "</a> via WhatsApp.",
+      "Wkwk, random banget! 😆 Tapi oke, aku hargai kejujuran ini.<br><br>Sayangnya aku belum bisa jawab di luar ranah trading & investasi. Tapi kalau kamu penasaran soal market hari ini, cara analisa saham, atau strategi trading — langsung aja tanya!<br><br>Atau langsung aja WA <a href='" + waLink + "'>" + waNumber + "</a> buat ngobrol lebih lanjut.",
+      "Hmm, good question actually! 🤷<br><br>Tapi aku mesti jujur: spesialisasiku baru di dunia trading. Kalau ada yang mau ditanya soal saham, forex, crypto, gold, atau analisa teknikal — aku siap! Untuk yang lain... mungkin next time ya 😄<br><br>Urgent? Hubungi <a href='" + waLink + "'>" + waNumber + "</a> via WhatsApp!"
     ];
     return fallbacks[Math.floor(Math.random() * fallbacks.length)];
   }
