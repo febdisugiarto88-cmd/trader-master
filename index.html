@@ -571,6 +571,8 @@
   @keyframes dotBounce { 0%,80%,100% { opacity: 0.3; } 40% { opacity: 1; } }
   @media (max-width: 480px) {
     .ai-chat-panel { width: calc(100vw - 32px); height: 60vh; right: 0; }
+    .chat-quick { grid-template-columns: 1fr 1fr; }
+    .chat-quick button { font-size: 0.72rem; padding: 6px 8px; }
   }
 </style>
 
@@ -590,10 +592,14 @@
         👋 Halo! Saya AI Trader Master. Tanya apa aja soal trading, analisa teknikal, atau market hari ini!
       </div>
       <div class="chat-quick" id="chatQuickReplies">
-        <button onclick="sendQuick('Apa itu analisa teknikal?')">📊 Analisa Teknikal?</button>
+        <button onclick="sendQuick('Apa itu analisa teknikal?')">📊 Analisa Teknikal</button>
         <button onclick="sendQuick('Bagaimana cara mulai trading saham?')">📈 Mulai Trading</button>
-        <button onclick="sendQuick('Apa rekomendasi market hari ini?')">🔮 Rekomendasi</button>
+        <button onclick="sendQuick('Bagaimana cara mengelola risiko trading?')">🛡️ Risk Management</button>
+        <button onclick="sendQuick('Apa beda fundamental dan teknikal?')">🏢 Fundamental</button>
         <button onclick="sendQuick('Apa itu support dan resistance?')">📐 S/R Level</button>
+        <button onclick="sendQuick('Apa pola candlestick yang penting?')">🕯️ Candlestick</button>
+        <button onclick="sendQuick('Trading gold itu bagaimana?')">🥇 Gold</button>
+        <button onclick="sendQuick('Apa strategi trading yang cocok untuk pemula?')">🎯 Strategi</button>
       </div>
     </div>
     <div class="chat-input-wrap">
@@ -620,20 +626,174 @@
     toggle.style.display = 'flex';
   });
 
-  const aiResponses = {
-    teknikal: "📊 <b>Analisa teknikal</b> adalah metode memprediksi pergerakan harga berdasarkan data historis — seperti pola chart, indikator (RSI, MACD, Moving Average), dan level support/resistance. Intinya: membaca <i>apa yang sudah terjadi</i> untuk memprediksi <i>apa yang mungkin terjadi</i>.",
-    mulai: "📈 <b>Mulai trading saham</b>:<br>1️⃣ Buka rekening sekuritas (Ajaib, Stockbit, IPOT, Mirae)<br>2️⃣ Deposit dana (mulai dari Rp 100rb)<br>3️⃣ Pelajari fundamental & teknikal dasar<br>4️⃣ Mulai dengan saham blue chip dulu (BBCA, TLKM, ASII)<br>5️⃣ Kelola risiko: jangan all-in, pakai stop loss!",
-    rekomendasi: "🔮 Untuk rekomendasi terkini, cek <a href='/blog/'>Blog Trader Master</a> — kami update analisa market setiap hari! Hari ini kami bahas IHSG di level 6.800, Bitcoin di $88K, dan EUR/USD yang terkoreksi.",
-    support: "📐 <b>Support</b> = level harga di mana permintaan cukup kuat untuk menahan penurunan (harga cenderung 'memantul').<br><b>Resistance</b> = level harga di mana tekanan jual cukup kuat untuk menahan kenaikan (harga cenderung 'mental').<br><br>Cara pakainya: <b>buy dekat support, jual dekat resistance</b> — tapi selalu konfirmasi dengan volume dan indikator lain!",
+  // ═══════════════════════════════════════
+  // 🤖 AI KNOWLEDGE BASE — Trader Master
+  // ═══════════════════════════════════════
+
+  const knowledge = {
+    // ── INTRO / GREETING ──
+    greeting: [
+      "Halo! 👋 Saya asisten AI Trader Master. Siap bantu kamu belajar trading — dari analisa teknikal, cara mulai, sampai strategi risk management. Tanya aja!",
+      "Hai! 🤖 Mau tanya apa hari ini? Saya bisa jelasin soal analisa teknikal, cara trading saham/forex/crypto, manajemen risiko, atau rekomendasi market terbaru. Silakan!"
+    ],
+
+    // ── ANALISA TEKNIKAL ──
+    teknikal: "📊 <b>Analisa Teknikal</b> adalah metode membaca pergerakan harga berdasarkan data historis — pola chart, indikator, dan volume.<br><br>🔧 <b>Tools utama:</b><br>• <b>Moving Average (MA)</b> — tren arah harga (MA50, MA200)<br>• <b>RSI</b> — overbought (>70) / oversold (<30)<br>• <b>MACD</b> — sinyal crossover bullish/bearish<br>• <b>Bollinger Bands</b> — volatilitas & breakout<br>• <b>Fibonacci Retracement</b> — level support/resistance<br>• <b>Volume</b> — konfirmasi kekuatan tren<br><br>Intinya: membaca <i>apa yang sudah terjadi</i> untuk memprediksi <i>apa yang mungkin terjadi</i>. Baca selengkapnya di <a href='/blog/'>blog kami</a>!",
+
+    // ── ANALISA FUNDAMENTAL ──
+    fundamental: "🏢 <b>Analisa Fundamental</b> menilai nilai intrinsik aset berdasarkan data ekonomi & keuangan.<br><br>📋 <b>Saham:</b> Laporan keuangan (EPS, PER, PBV, ROE), pertumbuhan pendapatan, sektor industri<br>💱 <b>Forex:</b> Suku bunga, GDP, inflasi, data tenaga kerja (NFP), kebijakan bank sentral<br>🥇 <b>Gold/XAUUSD:</b> Inflasi global, indeks dolar (DXY), suku bunga riil, geopolitical risk<br>₿ <b>Crypto:</b> Adopsi jaringan, on-chain metrics, regulasi, inflow/outflow ETF<br><br>Fundamental = 'kenapa harga bergerak', Teknikal = 'kapan entry'.",
+
+    // ── CARA MULAI TRADING ──
+    mulai: "🚀 <b>Cara Mulai Trading di Indonesia:</b><br><br>1️⃣ <b>Buka rekening sekuritas</b> (Ajaib, Stockbit, IPOT, Mirae, Mandiri Sekuritas)<br>2️⃣ <b>Deposit dana</b> — mulai dari Rp 100.000<br>3️⃣ <b>Pilih instrumen:</b> Saham (IHSG), Forex, Gold, atau Crypto (via Pintu/Tokocrypto/Indodax)<br>4️⃣ <b>Pelajari dasar:</b> Analisa teknikal + fundamental, baca berita ekonomi<br>5️⃣ <b>Mulai kecil:</b> Saham blue chip dulu (BBCA, TLKM, ASII, BBNI)<br>6️⃣ <b>Kelola risiko:</b> Jangan all-in, pakai stop loss, risk per trade max 2% modal<br><br>💡 <b>Pro tip:</b> Baca <a href='/blog/'>blog Trader Master</a> untuk analisa harian + sinyal trading!",
+
+    // ── SUPPORT & RESISTANCE ──
+    support: "📐 <b>Support & Resistance — Level Kunci Trading</b><br><br>🟢 <b>Support:</b> Level harga di mana permintaan cukup kuat menahan penurunan. Harga cenderung <i>memantul</i> naik dari sini.<br><br>🔴 <b>Resistance:</b> Level harga di mana tekanan jual cukup kuat menahan kenaikan. Harga cenderung <i>mental</i> turun dari sini.<br><br>🎯 <b>Strategi:</b><br>• Buy dekat support, target di resistance<br>• Sell dekat resistance, target di support<br>• Breakout: saat level tembus dengan volume besar = sinyal kuat!<br>• False breakout: tembus sebentar lalu balik = jebakan<br><br>⚠️ Selalu konfirmasi dengan volume & candlestick pattern!",
+
+    // ── RISK MANAGEMENT ──
+    risk: "🛡️ <b>Risk Management — Kunci Profit Konsisten</b><br><br>📏 <b>Aturan emas:</b><br>• <b>Risk per trade:</b> Maksimal 2% dari total modal<br>• <b>Risk/Reward Ratio:</b> Minimal 1:2 (risiko Rp 100rb → target profit Rp 200rb)<br>• <b>Stop Loss:</b> WAJIB! Jangan pernah trading tanpa stop loss<br>• <b>Position sizing:</b> Hitung lot/lembar sesuai risiko, bukan modal<br>• <b>Max drawdown:</b> Jika portfolio turun 10%, STOP dan evaluasi<br><br>🧠 <b>Psikologi trading:</b><br>• Jangan revenge trading (balas dendam setelah loss)<br>• Jangan FOMO (ikut-ikutan beli karena hype)<br>• Disiplin > emosi. Rencana trading adalah kompas kamu.<br><br>📊 Trader profesional fokus pada PROSES, bukan hasil per trade.",
+
+    // ── IHSG / SAHAM INDONESIA ──
+    ihsg: "🇮🇩 <b>IHSG — Indeks Harga Saham Gabungan</b><br><br>IHSG adalah indeks pasar saham Indonesia yang mencakup seluruh saham di BEI. Level saat ini sekitar <b>6.800–7.000</b> (Juli 2026).<br><br>🏦 <b>Sektor utama:</b> Perbankan (BBCA, BBRI, BMRI), Energi, Consumer, Infrastruktur<br><br>📈 <b>Trading IHSG:</b><br>• Jam trading: 09:00–16:00 WIB (Senin–Jumat)<br>• Indeks saham unggulan: IDX30, LQ45<br>• Blue chip: BBCA, TLKM, ASII, BBNI, UNVR<br>• Cek analisa IHSG harian di <a href='/blog/'>blog kami</a>!",
+
+    // ── FOREX ──
+    forex: "💱 <b>Trading Forex (Foreign Exchange)</b><br><br>Forex adalah pasar mata uang global — terbesar di dunia dengan volume $7.5 triliun/hari. Buka 24 jam, Senin–Jumat.<br><br>💵 <b>Pair utama:</b> EUR/USD, GBP/USD, USD/JPY, AUD/USD, USD/IDR<br><br>🔑 <b>Faktor penggerak:</b><br>• Suku bunga bank sentral (The Fed, ECB, BI)<br>• Data ekonomi: NFP, CPI, GDP, klaim pengangguran<br>• Geopolitik & risk sentiment<br><br>⚠️ <b>Perhatian:</b> Leverage tinggi = pedang bermata dua. Bisa profit besar, bisa loss besar. Disiplin risk management WAJIB!",
+
+    // ── GOLD / XAUUSD ──
+    gold: "🥇 <b>Trading Gold (XAUUSD)</b><br><br>Emas adalah <i>safe haven</i> — aset lindung nilai saat inflasi tinggi, resesi, atau ketidakpastian global.<br><br>📊 <b>Faktor penggerak harga emas:</b><br>• <b>DXY (Indeks Dolar):</b> Dolar naik → emas turun (dan sebaliknya)<br>• <b>Suku bunga riil:</b> Bunga naik → emas turun<br>• <b>Inflasi:</b> Inflasi tinggi → emas naik<br>• <b>Geopolitik:</b> Perang/krisis → emas naik<br>• <b>Permintaan bank sentral:</b> China, India, Rusia beli emas besar-besaran<br><br>🔮 Gold sering <i>leading indicator</i> untuk risk sentiment global. Kalau emas naik tajam = pasar takut sesuatu.",
+
+    // ── CRYPTO ──
+    crypto: "₿ <b>Trading Crypto</b><br><br>Crypto adalah aset digital dengan volatilitas tinggi. Market cap total ~$3 triliun (2026).<br><br>🪙 <b>Koin utama:</b><br>• <b>Bitcoin (BTC)</b> — digital gold, store of value<br>• <b>Ethereum (ETH)</b> — smart contract & DeFi backbone<br>• <b>Stablecoin:</b> USDT, USDC (1:1 ke USD)<br><br>📈 <b>Exchange Indonesia:</b> Pintu, Tokocrypto, Indodax, Reku<br><br>⚡ <b>Karakteristik:</b><br>• Volatilitas sangat tinggi (bisa ±10% sehari!)<br>• Pasar 24/7, nggak ada hari libur<br>• Dipengaruhi: ETF inflow, regulasi, halving BTC, narasi (AI coins, meme coins)<br>• Manajemen risiko HARUS ketat — jangan serakah!",
+
+    // ── STRATEGI TRADING ──
+    strategi: "🎯 <b>Strategi Trading Populer:</b><br><br>📊 <b>Trend Following:</b> Ikut arah tren. 'The trend is your friend'. Pakai MA crossover, ADX. Cocok untuk swing trading.<br><br>🔄 <b>Mean Reversion:</b> Asumsi harga akan kembali ke rata-rata. Pakai Bollinger Bands, RSI overbought/oversold.<br><br>💥 <b>Breakout Trading:</b> Entry saat harga tembus support/resistance kunci. Konfirmasi wajib: volume tinggi!<br><br>🔢 <b>Scalping:</b> Profit kecil tapi sering (TF 1M–5M). Butuh fokus tinggi & spread rendah.<br><br>📅 <b>Swing Trading:</b> Tahan posisi 1–7 hari, target 2–5% per trade. Cocok untuk yang nggak bisa mantau seharian.<br><br>🐋 <b>Position Trading:</b> Jangka panjang (minggu–bulan), berdasarkan fundamental & macro trend.",
+
+    // ── INDIKATOR ──
+    indikator: "🔧 <b>Indikator Trading Paling Berguna:</b><br><br>📈 <b>Moving Average (MA):</b> Arah tren. MA50 & MA200 paling dipakai. Golden cross (MA50 potong MA200 ke atas) = sinyal bullish.<br><br>📊 <b>RSI (Relative Strength Index):</b> Momentum. >70 = overbought (potensi koreksi), <30 = oversold (potensi reversal).<br><br>📉 <b>MACD:</b> Konvergensi/divergensi moving average. Crossover sinyal line = momentum shift.<br><br>🫧 <b>Bollinger Bands:</b> Volatilitas. Harga di luar band = extreme, harga di dalam = konsolidasi.<br><br>📐 <b>Fibonacci:</b> Level psikologis trader. Golden zone: 0.618–0.786 retracement.<br><br>📦 <b>Volume Profile:</b> Di mana harga paling banyak diperdagangkan. High volume node = support/resistance kuat.",
+
+    // ── CANDLESTICK ──
+    candlestick: "🕯️ <b>Candlestick Patterns Paling Penting:</b><br><br>🐂 <b>Bullish reversal:</b> Hammer, Morning Star, Bullish Engulfing, Piercing Line, Dragonfly Doji<br><br>🐻 <b>Bearish reversal:</b> Shooting Star, Evening Star, Bearish Engulfing, Dark Cloud Cover, Gravestone Doji<br><br>📦 <b>Continuation:</b> Marubozu, Three White Soldiers (bullish), Three Black Crows (bearish)<br><br>🔍 <b>Konfirmasi:</b> 1 candle pattern BUKAN sinyal pasti. Selalu tunggu candle berikutnya untuk konfirmasi + cek volume!",
+
+    // ── PSIKOLOGI TRADING ──
+    psikologi: "🧠 <b>Psikologi Trading — Musuh Terbesar Adalah Diri Sendiri</b><br><br>❌ <b>Kesalahan umum trader pemula:</b><br>• <b>FOMO</b> — beli karena takut ketinggalan, sering di puncak<br>• <b>Revenge trading</b> — balas dendam setelah loss, bikin loss makin besar<br>• <b>Overtrading</b> — terlalu sering entry tanpa setup jelas<br>• <b>Cut winner too early</b> — jual pas profit kecil, padahal tren masih kuat<br>• <b>Hold loser too long</b> — nggak mau cut loss, akhirnya loss makin dalam<br><br>✅ <b>Solusi:</b><br>• Buat rencana trading SEBELUM entry<br>• Catat semua trade di jurnal trading<br>• Disiplin: ikut rencana, bukan emosi<br>• Terima bahwa loss adalah bagian dari bisnis ini",
+
+    // ── ORDER TYPE ──
+    order: "📝 <b>Jenis Order dalam Trading:</b><br><br>💰 <b>Market Order:</b> Buy/sell di harga saat ini. Eksekusi instan, harga nggak pasti.<br><br>🎯 <b>Limit Order:</b> Buy/sell di harga spesifik (atau lebih baik). Eksekusi pas harga tersentuh.<br><br>🛑 <b>Stop Order:</b> Jadi market order saat harga trigger tersentuh. Buy stop di atas, sell stop di bawah.<br><br>🛡️ <b>Stop Loss:</b> Limit kerugian otomatis. WAJIB di setiap trade!<br><br>🏆 <b>Take Profit:</b> Ambil profit otomatis di target harga. Jangan serakah — target realistis lebih baik.",
+
+    // ── GLOSARIUM ──
+    glosarium: "📚 <b>Glosarium Trading Singkat:</b><br><br>• <b>Bullish</b> = tren naik 📈<br>• <b>Bearish</b> = tren turun 📉<br>• <b>Entry</b> = titik masuk posisi<br>• <b>Exit</b> = titik keluar posisi<br>• <b>SL / Stop Loss</b> = batas rugi<br>• <b>TP / Take Profit</b> = target untung<br>• <b>Lot</b> = satuan volume transaksi<br>• <b>Spread</b> = selisih harga beli & jual<br>• <b>Pips</b> = satuan pergerakan harga forex<br>• <b>Leverage</b> = daya ungkit (modal kecil, eksposur besar)<br>• <b>Margin</b> = jaminan untuk buka posisi<br>• <b>Divergence</b> = harga vs indikator berlawanan arah",
+
+    // ── KOMUNITAS & SIGNAL ──
+    komunitas: "👥 <b>Trader Master — Lebih dari Sekadar Analisa</b><br><br>Kami bukan cuma blog analisa. Kami komunitas trader yang:<br>📊 Sharing sinyal trading harian<br>📚 Edukasi dari basic sampai pro<br>🤝 Diskusi & tanya jawab real-time<br>🔔 Notifikasi saat harga sentuh level kunci<br><br>Semua gratis. Cek <a href='/blog/'>blog kami</a> untuk analisa terbaru — update setiap hari!"
   };
 
+  // ── FUZZY MATCHING ENGINE ──
+  const patterns = [
+    // Greetings
+    { keys: ['halo','hai','hi','hello','hei','pagi','siang','malam','assalamualaikum','selamat','yo','hey','test','tes'], cat: 'greeting', fuzzy: false },
+    // Teknikal
+    { keys: ['teknikal','analisa teknikal','technical','chart','indikator teknikal'], cat: 'teknikal' },
+    // Fundamental
+    { keys: ['fundamental','analisa fundamental','laporan keuangan','neraca','eps','per','pbv','roe','suku bunga','gdp','inflasi','data ekonomi','bank sentral','the fed','bi rate'], cat: 'fundamental' },
+    // Mulai trading
+    { keys: ['mulai','cara trading','belajar trading','pemula','newbie','baru','pertama','buka rekening','sekuritas','modal','deposit','daftar','gimana caranya','trading pemula','cara mulai'], cat: 'mulai' },
+    // Support & Resistance
+    { keys: ['support','resistance','level','snr','s/r','harga kunci','breakout','false breakout','support resistance'], cat: 'support' },
+    // Risk management
+    { keys: ['risk','risiko','manajemen risiko','stop loss','cut loss','money management','position sizing','drawdown','risk reward','per trade','max','modal aman','loss','rugi','bangkrut','mc','margin call'], cat: 'risk' },
+    // IHSG/Saham
+    { keys: ['ihsg','saham','saham indonesia','bei','bursa efek','idx','lq45','idx30','blue chip','bbca','tlkm','asii','bbni','bbri','bmri','unvr','saham blue'], cat: 'ihsg' },
+    // Forex
+    { keys: ['forex','valas','mata uang','eur usd','eurusd','gbp usd','gbpusd','usd jpy','usdjpy','usd idr','usdidr','dollar','dolar','pair','pip','pips','broker forex'], cat: 'forex' },
+    // Gold
+    { keys: ['gold','emas','xauusd','xau','safe haven','dxy','indeks dolar','dolar index','emas naik','harga emas','logam mulia','antam'], cat: 'gold' },
+    // Crypto
+    { keys: ['crypto','kripto','bitcoin','btc','ethereum','eth','altcoin','pintu','tokocrypto','indodax','reku','binance','blockchain','stablecoin','usdt','usdc','halving','defi','nft','meme coin','meme'], cat: 'crypto' },
+    // Strategi
+    { keys: ['strategi','trend following','mean reversion','breakout trading','scalping','swing trading','position trading','day trading','trading plan','setup','strategi trading'], cat: 'strategi' },
+    // Indikator
+    { keys: ['indikator','ma','moving average','rsi','macd','bollinger','fibonacci','volume','adx','stochastic','ichimoku','indikator apa','indikator terbaik','indikator wajib'], cat: 'indikator' },
+    // Candlestick
+    { keys: ['candlestick','candle','pattern','hammer','doji','engulfing','morning star','evening star','shooting star','marubozu','pola candle','pola chart','price action'], cat: 'candlestick' },
+    // Psikologi
+    { keys: ['psikologi','fomo','emosi','disiplin','mental','trading psychology','psikologi trading','jurnal','jurnal trading','serakah','takut','stress','trauma','loss terus','balas dendam','revenge','overtrading','serakah'], cat: 'psikologi' },
+    // Order type
+    { keys: ['order','order type','market order','limit order','stop order','take profit','tp','jenis order','pesanan','entry order'], cat: 'order' },
+    // Glosarium
+    { keys: ['glosarium','istilah','arti','definisi','maksud','apa itu bullish','apa itu bearish','apa itu spread','apa itu lot','apa itu leverage','apa itu margin','apa itu pip','bullish adalah','bearish adalah'], cat: 'glosarium' },
+    // Komunitas
+    { keys: ['komunitas','sinyal','signal','telegram','grup','discord','gabung','join','daftar komunitas'], cat: 'komunitas' },
+    // Rekomendasi/update
+    { keys: ['rekomendasi','rekomendasi hari ini','market','hari ini','prediksi','outlook','prospek','analisa terbaru','update','berita','news','terkini','sekarang','recent'], cat: 'rekomendasi' },
+  ];
+
+  let lastCat = null; // avoid repeating same category
+
   function getAIResponse(msg) {
-    const m = msg.toLowerCase();
-    if (m.includes('teknikal') || m.includes('analisa teknikal')) return aiResponses.teknikal;
-    if (m.includes('mulai') || m.includes('cara') || m.includes('trading saham') || m.includes('belajar')) return aiResponses.mulai;
-    if (m.includes('rekomendasi') || m.includes('market') || m.includes('hari ini') || m.includes('prediksi')) return aiResponses.rekomendasi;
-    if (m.includes('support') || m.includes('resistance') || m.includes('level')) return aiResponses.support;
-    return "Terima kasih pertanyaannya! 🙏<br><br>Untuk analisa market terkini, cek <a href='/blog/'>blog kami</a> yang update setiap hari. Atau tanya lebih spesifik tentang:<br>📊 Analisa teknikal<br>📈 Cara mulai trading<br>🔮 Rekomendasi market<br>📐 Support & resistance";
+    const m = msg.toLowerCase().trim();
+    let matched = null;
+    let bestScore = 0;
+
+    for (const p of patterns) {
+      for (const key of p.keys) {
+        // Exact match premium
+        if (m === key) { matched = p.cat; bestScore = 999; break; }
+        // Contains match
+        if (m.includes(key)) {
+          const score = key.length; // longer match = more specific
+          if (score > bestScore) { matched = p.cat; bestScore = score; }
+        }
+        // Word-level fuzzy (80% match)
+        const words = m.split(/\s+/);
+        for (const w of words) {
+          if (w.length > 3 && key.length > 3) {
+            const similarity = wordSim(w, key);
+            if (similarity > 0.75 && similarity > bestScore / 10) {
+              matched = p.cat;
+              bestScore = similarity * 10;
+            }
+          }
+        }
+      }
+      if (bestScore >= 999) break;
+    }
+
+    if (matched && matched !== lastCat && knowledge[matched]) {
+      lastCat = matched;
+      if (Array.isArray(knowledge[matched])) {
+        return knowledge[matched][Math.floor(Math.random() * knowledge[matched].length)];
+      }
+      return knowledge[matched];
+    }
+
+    // Fallback: rotate through topics
+    lastCat = null;
+    const fallbacks = [
+      "Pertanyaan bagus! 🙏<br><br>Untuk analisa market terkini, cek <a href='/blog/'>blog Trader Master</a> — update setiap hari. Kamu bisa tanya soal:<br>📊 Analisa teknikal & fundamental<br>📈 Cara mulai trading (saham, forex, gold, crypto)<br>🛡️ Risk management & psikologi trading<br>🔧 Indikator & strategi trading<br><br>Atau ketik <b>'glosarium'</b> untuk daftar istilah trading!",
+      "Saya belum punya jawaban spesifik untuk itu 😅<br><br>Tapi kamu bisa tanya tentang:<br>📊 <b>Teknikal</b> — analisa teknikal & indikator<br>🏢 <b>Fundamental</b> — analisa fundamental<br>🛡️ <b>Risk</b> — manajemen risiko<br>🧠 <b>Psikologi</b> — psikologi trading<br>📈 <b>Mulai</b> — cara mulai trading<br>📐 <b>Support/Resistance</b> — level kunci<br>💱 <b>Forex / Gold / Crypto / IHSG</b> — info instrumen spesifik"
+    ];
+    return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+  }
+
+  // Levenshtein-based word similarity
+  function wordSim(a, b) {
+    const shorter = a.length < b.length ? a : b;
+    const longer = a.length < b.length ? b : a;
+    if (longer.length === 0) return 1.0;
+    if (shorter.length < 3) return a === b ? 1.0 : 0;
+    const dist = levenshtein(a, b);
+    return 1.0 - dist / longer.length;
+  }
+
+  function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const d = Array.from({length: m+1}, (_,i) => [i]);
+    for (let j=0; j<=n; j++) d[0][j] = j;
+    for (let i=1; i<=m; i++) {
+      for (let j=1; j<=n; j++) {
+        d[i][j] = a[i-1] === b[j-1] ? d[i-1][j-1] : Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1]) + 1;
+      }
+    }
+    return d[m][n];
   }
 
   function addMsg(text, type) {
