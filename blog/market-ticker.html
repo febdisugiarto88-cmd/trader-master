@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Ticker</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      margin: 0; padding: 0; background: transparent;
+    }
+    .ticker-wrap {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border-radius: 12px; padding: 16px 20px; margin: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    }
+    .ticker-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .ticker-title {
+      color: #e2e8f0; font-size: 0.82rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .ticker-time {
+      color: #64748b; font-size: 0.7rem;
+    }
+    .ticker-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+    .ticker-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-radius: 8px;
+      background: rgba(255,255,255,0.04); transition: background 0.2s;
+    }
+    .ticker-item:hover { background: rgba(255,255,255,0.08); }
+    .ticker-symbol {
+      display: flex; align-items: center; gap: 6px;
+      color: #94a3b8; font-size: 0.78rem; font-weight: 600;
+    }
+    .ticker-price {
+      color: #f1f5f9; font-size: 0.82rem; font-weight: 700;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ticker-change { font-size: 0.72rem; font-weight: 600; }
+    .up { color: #4ade80; }
+    .down { color: #f87171; }
+    .refresh-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; display: inline-block; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    @media (max-width: 600px) {
+      .ticker-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; }
+      .ticker-item { padding: 8px 10px; }
+      .ticker-price { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="ticker-wrap" id="tickerRoot">
+    <div class="ticker-header">
+      <span class="ticker-title">📊 Market Data</span>
+      <span class="ticker-time"><span class="refresh-dot"></span> Live</span>
+    </div>
+    <div class="ticker-grid" id="tickerGrid">
+      <div class="ticker-item"><span style="color:#64748b;font-size:0.75rem">Loading...</span></div>
+    </div>
+  </div>
+
+  <script>
+    const assets = [
+      { emoji: "₿", name: "BTC", ticker: "BTC-USD" },
+      { emoji: "🥇", name: "Gold", ticker: "GC=F" },
+      { emoji: "💵", name: "EUR/USD", ticker: "EURUSD=X" },
+      { emoji: "💴", name: "USD/JPY", ticker: "JPY=X" },
+      { emoji: "🇮🇩", name: "USD/IDR", ticker: "IDR=X" },
+      { emoji: "🛢️", name: "Oil", ticker: "CL=F" },
+      { emoji: "📈", name: "S&P 500", ticker: "^GSPC" },
+      { emoji: "💻", name: "Nasdaq", ticker: "^IXIC" },
+    ];
+
+    async function loadData() {
+      try {
+        const resp = await fetch('/market-data.json');
+        if (!resp.ok) throw new Error('fetch failed');
+        const data = await resp.json();
+        render(data);
+      } catch {
+        // fallback: embedded static data
+        renderFromStatic();
+      }
+    }
+
+    function renderFromStatic() {
+      const staticData = {
+        BTC: { price: 64091.08, change_pct: -1.80 },
+        Gold: { price: 4070.80, change_pct: 0.51 },
+        EURUSD: { price: 1.1375, change_pct: -0.06 },
+        USDJPY: { price: 163.79, change_pct: 0.02 },
+        USDIDR: { price: 17935, change_pct: 0.14 },
+        Oil: { price: 89.31, change_pct: -3.12 },
+        "S&P 500": { price: 7411.98, change_pct: 0.05 },
+        Nasdaq: { price: 24975.82, change_pct: -0.64 },
+      };
+      render({ assets: staticData });
+    }
+
+    function render(data) {
+      const grid = document.getElementById('tickerGrid');
+      let html = '';
+      for (const a of assets) {
+        const d = data.assets ? data.assets[a.name] : data[a.name];
+        if (!d) continue;
+        const up = (d.change_pct || 0) >= 0;
+        const cls = up ? 'up' : 'down';
+        const arrow = up ? '▲' : '▼';
+        const priceStr = a.name === 'EURUSD' ? d.price.toFixed(4) :
+                         a.name === 'USDJPY' ? d.price.toFixed(2) :
+                         d.price >= 1000 ? d.price.toLocaleString('en-US') :
+                         d.price.toFixed(2);
+        html += '<div class="ticker-item">' +
+          '<span class="ticker-symbol">' + a.emoji + ' ' + a.name + '</span>' +
+          '<span class="ticker-price">' + priceStr +
+          ' <span class="ticker-change ' + cls + '">' + arrow + ' ' + Math.abs(d.change_pct || 0).toFixed(2) + '%</span>' +
+          '</span></div>';
+      }
+      grid.innerHTML = html;
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
