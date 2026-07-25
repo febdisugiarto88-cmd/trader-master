@@ -1,0 +1,14 @@
+{
+  "fetched": "2026-07-25T05:12:00Z",
+  "assets": {
+    "BTC": { "ticker": "BTC-USD", "price": 64091.08, "change_pct": -1.80, "prev_close": 64091.96, "high": 64127.23, "low": 63949.80, "mcap": "1.29T", "volume_24h": "24.71B" },
+    "Gold": { "ticker": "GC=F", "price": 4070.80, "change_pct": 0.51, "prev_close": 4050.20, "high": 4085.20, "low": 4024.00, "volume": "112.4K" },
+    "EURUSD": { "ticker": "EURUSD=X", "price": 1.1375, "change_pct": -0.06, "prev_close": 1.1382, "high": 1.1404, "low": 1.1369 },
+    "USDJPY": { "ticker": "JPY=X", "price": 163.79, "change_pct": 0.02, "prev_close": 163.76, "high": 163.94, "low": 163.64 },
+    "GBPUSD": { "ticker": "GBPUSD=X", "price": 1.3319, "change_pct": 0.02, "prev_close": 1.3316, "high": 1.3348, "low": 1.3307 },
+    "USDIDR": { "ticker": "IDR=X", "price": 17935, "change_pct": 0.14, "prev_close": 17910, "high": 17935, "low": 17935 },
+    "SP500": { "ticker": "^GSPC", "price": 7411.98, "change_pct": 0.05, "prev_close": 7408.30, "high": 7460.98, "low": 7396.53 },
+    "Nasdaq": { "ticker": "^IXIC", "price": 24975.82, "change_pct": -0.64, "prev_close": 25137.69, "high": 25222.14, "low": 24918.09 },
+    "Oil": { "ticker": "CL=F", "price": 89.31, "change_pct": -3.12, "prev_close": 92.19, "high": 92.83, "low": 87.68 }
+  }
+}

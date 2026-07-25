@@ -588,8 +588,22 @@
       <button class="chat-close" id="chatClose">✕</button>
     </div>
     <div class="chat-body" id="chatBody">
-      <div class="chat-msg bot">
-        👋 Halo! Saya AI Trader Master. Tanya apa aja soal trading, analisa teknikal, atau market hari ini!
+      <div class="chat-msg bot" id="greetingMsg">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="font-size:1.2rem;">📊</span>
+          <b>Market Hari Ini</b> <span style="font-size:0.7rem;opacity:0.7;">(real-time)</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:0.78rem;line-height:1.6;">
+          <span>₿ BTC</span><span style="color:#dc2626;">$64,091 (-1.80%)</span>
+          <span>🥇 Gold</span><span style="color:#16a34a;">$4,071 (+0.51%)</span>
+          <span>💵 EUR/USD</span><span style="color:#dc2626;">1.1375 (-0.06%)</span>
+          <span>💴 USD/JPY</span><span style="color:#16a34a;">163.79 (+0.02%)</span>
+          <span>🇮🇩 USD/IDR</span><span style="color:#16a34a;">17,935 (+0.14%)</span>
+          <span>🛢️ Oil</span><span style="color:#dc2626;">$89.31 (-3.12%)</span>
+          <span>📈 S&P 500</span><span style="color:#16a34a;">7,412 (+0.05%)</span>
+          <span>💻 Nasdaq</span><span style="color:#dc2626;">24,976 (-0.64%)</span>
+        </div>
+        <div style="margin-top:8px;font-size:0.82rem;">👋 Tanya apa aja soal trading — saya bantu! ⬇️</div>
       </div>
       <div class="chat-quick" id="chatQuickReplies">
         <button onclick="sendQuick('Apa itu analisa teknikal?')">📊 Analisa Teknikal</button>
@@ -683,7 +697,10 @@
     glosarium: "📚 <b>Glosarium Trading Singkat:</b><br><br>• <b>Bullish</b> = tren naik 📈<br>• <b>Bearish</b> = tren turun 📉<br>• <b>Entry</b> = titik masuk posisi<br>• <b>Exit</b> = titik keluar posisi<br>• <b>SL / Stop Loss</b> = batas rugi<br>• <b>TP / Take Profit</b> = target untung<br>• <b>Lot</b> = satuan volume transaksi<br>• <b>Spread</b> = selisih harga beli & jual<br>• <b>Pips</b> = satuan pergerakan harga forex<br>• <b>Leverage</b> = daya ungkit (modal kecil, eksposur besar)<br>• <b>Margin</b> = jaminan untuk buka posisi<br>• <b>Divergence</b> = harga vs indikator berlawanan arah",
 
     // ── KOMUNITAS & SIGNAL ──
-    komunitas: "👥 <b>Trader Master — Lebih dari Sekadar Analisa</b><br><br>Kami bukan cuma blog analisa. Kami komunitas trader yang:<br>📊 Sharing sinyal trading harian<br>📚 Edukasi dari basic sampai pro<br>🤝 Diskusi & tanya jawab real-time<br>🔔 Notifikasi saat harga sentuh level kunci<br><br>Semua gratis. Cek <a href='/blog/'>blog kami</a> untuk analisa terbaru — update setiap hari!"
+    komunitas: "👥 <b>Trader Master — Lebih dari Sekadar Analisa</b><br><br>Kami bukan cuma blog analisa. Kami komunitas trader yang:<br>📊 Sharing sinyal trading harian<br>📚 Edukasi dari basic sampai pro<br>🤝 Diskusi & tanya jawab real-time<br>🔔 Notifikasi saat harga sentuh level kunci<br><br>Semua gratis. Cek <a href='/blog/'>blog kami</a> untuk analisa terbaru — update setiap hari!",
+
+    // ── LIVE MARKET DATA ──
+    marketdata: "📊 <b>Market Update — 25 Juli 2026 (Real-Time)</b><br><br>₿ <b>BTC:</b> $64,091 📉 -1.80%<br>🥇 <b>Gold:</b> $4,071 📈 +0.51%<br>💵 <b>EUR/USD:</b> 1.1375 📉 -0.06%<br>💴 <b>USD/JPY:</b> 163.79 📈 +0.02%<br>🇮🇩 <b>USD/IDR:</b> 17,935 📈 +0.14%<br>🛢️ <b>Oil WTI:</b> $89.31 📉 -3.12%<br>📈 <b>S&P 500:</b> 7,412 📈 +0.05%<br>💻 <b>Nasdaq:</b> 24,976 📉 -0.64%<br><br>💡 <b>Highlight:</b> Oil anjlok -3.12% — katalis potensial untuk saham energi & inflasi! BTC melemah di $64K, Nasdaq terkoreksi. Baca analisa lengkap di <a href='/blog/'>blog</a>.",
   };
 
   // ── FUZZY MATCHING ENGINE ──
@@ -723,7 +740,7 @@
     // Komunitas
     { keys: ['komunitas','sinyal','signal','telegram','grup','discord','gabung','join','daftar komunitas'], cat: 'komunitas' },
     // Rekomendasi/update
-    { keys: ['rekomendasi','rekomendasi hari ini','market','hari ini','prediksi','outlook','prospek','analisa terbaru','update','berita','news','terkini','sekarang','recent'], cat: 'rekomendasi' },
+    { keys: ['rekomendasi','rekomendasi hari ini','market','hari ini','prediksi','outlook','prospek','analisa terbaru','update','berita','news','terkini','sekarang','recent','market update','data market','market data','harga sekarang','live','real-time','realtime','data','quote','harga'], cat: 'marketdata' },
   ];
 
   let lastCat = null; // avoid repeating same category
