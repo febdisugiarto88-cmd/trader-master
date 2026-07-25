@@ -508,5 +508,179 @@
   </div>
 </footer>
 
+<!-- CHATBOT AI WIDGET -->
+<style>
+  .ai-chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 9999; font-family: inherit; }
+  .ai-chat-bubble {
+    width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #1a56db, #3b82f6);
+    color: white; border: none; cursor: pointer; font-size: 24px;
+    box-shadow: 0 4px 20px rgba(26,86,219,0.4); transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ai-chat-bubble:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(26,86,219,0.55); }
+  .ai-chat-bubble .pulse {
+    position: absolute; width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(26,86,219,0.35); animation: chatPulse 2s infinite;
+  }
+  @keyframes chatPulse { 0%,100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.5); opacity: 0; } }
+  .ai-chat-panel {
+    display: none; position: absolute; bottom: 72px; right: 0;
+    width: 360px; height: 520px; background: white; border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18); overflow: hidden; flex-direction: column;
+  }
+  .ai-chat-panel.open { display: flex; }
+  .chat-header {
+    background: linear-gradient(135deg, #1a56db, #3b82f6); color: white;
+    padding: 16px 20px; font-weight: 700; font-size: 0.95rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .chat-header .status { font-size: 0.75rem; font-weight: 400; opacity: 0.9; display: flex; align-items: center; gap: 6px; }
+  .chat-header .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; animation: chatPulse 2s infinite; display: inline-block; }
+  .chat-close { background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+  .chat-close:hover { background: rgba(255,255,255,0.15); }
+  .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #f8fafc; }
+  .chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; line-height: 1.5; animation: msgIn 0.3s ease; }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .chat-msg.bot { background: white; border: 1px solid #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; }
+  .chat-msg.user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+  .chat-quick {
+    display: flex; flex-wrap: wrap; gap: 6px; padding: 0 4px;
+  }
+  .chat-quick button {
+    background: white; border: 1px solid #e2e8f0; padding: 8px 14px; border-radius: 20px;
+    font-size: 0.78rem; cursor: pointer; color: var(--text); transition: all 0.2s;
+  }
+  .chat-quick button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+  .chat-input-wrap {
+    display: flex; padding: 12px 16px; border-top: 1px solid #e2e8f0; background: white; gap: 8px;
+  }
+  .chat-input-wrap input {
+    flex: 1; border: 1px solid #e2e8f0; padding: 10px 14px; border-radius: 24px;
+    font-size: 0.85rem; outline: none; transition: border 0.2s;
+  }
+  .chat-input-wrap input:focus { border-color: var(--primary); }
+  .chat-input-wrap button {
+    background: var(--primary); color: white; border: none; width: 40px; height: 40px;
+    border-radius: 50%; cursor: pointer; font-size: 18px; transition: background 0.2s;
+  }
+  .chat-input-wrap button:hover { background: var(--primary-dark); }
+  .typing-dots { display: flex; gap: 4px; padding: 10px 14px; align-self: flex-start; }
+  .typing-dots span { width: 7px; height: 7px; border-radius: 50%; background: #94a3b8; animation: dotBounce 1.4s infinite; }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dotBounce { 0%,80%,100% { opacity: 0.3; } 40% { opacity: 1; } }
+  @media (max-width: 480px) {
+    .ai-chat-panel { width: calc(100vw - 32px); height: 60vh; right: 0; }
+  }
+</style>
+
+<div class="ai-chat-widget" id="aiChatWidget">
+  <button class="ai-chat-bubble" id="chatToggle" title="Tanya AI Trader Master">
+    <span class="pulse"></span>
+    🤖
+  </button>
+  <div class="ai-chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <span>🤖 AI Trader Master</span>
+      <span class="status"><span class="status-dot"></span> Online</span>
+      <button class="chat-close" id="chatClose">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot">
+        👋 Halo! Saya AI Trader Master. Tanya apa aja soal trading, analisa teknikal, atau market hari ini!
+      </div>
+      <div class="chat-quick" id="chatQuickReplies">
+        <button onclick="sendQuick('Apa itu analisa teknikal?')">📊 Analisa Teknikal?</button>
+        <button onclick="sendQuick('Bagaimana cara mulai trading saham?')">📈 Mulai Trading</button>
+        <button onclick="sendQuick('Apa rekomendasi market hari ini?')">🔮 Rekomendasi</button>
+        <button onclick="sendQuick('Apa itu support dan resistance?')">📐 S/R Level</button>
+      </div>
+    </div>
+    <div class="chat-input-wrap">
+      <input type="text" id="chatInput" placeholder="Tanya soal trading..." onkeypress="if(event.key==='Enter')sendMsg()">
+      <button onclick="sendMsg()">➤</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const panel = document.getElementById('chatPanel');
+  const toggle = document.getElementById('chatToggle');
+  const close = document.getElementById('chatClose');
+  const body = document.getElementById('chatBody');
+  const input = document.getElementById('chatInput');
+  const quickReplies = document.getElementById('chatQuickReplies');
+
+  toggle.addEventListener('click', () => {
+    panel.classList.toggle('open');
+    toggle.style.display = panel.classList.contains('open') ? 'none' : 'flex';
+  });
+  close.addEventListener('click', () => {
+    panel.classList.remove('open');
+    toggle.style.display = 'flex';
+  });
+
+  const aiResponses = {
+    teknikal: "📊 <b>Analisa teknikal</b> adalah metode memprediksi pergerakan harga berdasarkan data historis — seperti pola chart, indikator (RSI, MACD, Moving Average), dan level support/resistance. Intinya: membaca <i>apa yang sudah terjadi</i> untuk memprediksi <i>apa yang mungkin terjadi</i>.",
+    mulai: "📈 <b>Mulai trading saham</b>:<br>1️⃣ Buka rekening sekuritas (Ajaib, Stockbit, IPOT, Mirae)<br>2️⃣ Deposit dana (mulai dari Rp 100rb)<br>3️⃣ Pelajari fundamental & teknikal dasar<br>4️⃣ Mulai dengan saham blue chip dulu (BBCA, TLKM, ASII)<br>5️⃣ Kelola risiko: jangan all-in, pakai stop loss!",
+    rekomendasi: "🔮 Untuk rekomendasi terkini, cek <a href='/blog/'>Blog Trader Master</a> — kami update analisa market setiap hari! Hari ini kami bahas IHSG di level 6.800, Bitcoin di $88K, dan EUR/USD yang terkoreksi.",
+    support: "📐 <b>Support</b> = level harga di mana permintaan cukup kuat untuk menahan penurunan (harga cenderung 'memantul').<br><b>Resistance</b> = level harga di mana tekanan jual cukup kuat untuk menahan kenaikan (harga cenderung 'mental').<br><br>Cara pakainya: <b>buy dekat support, jual dekat resistance</b> — tapi selalu konfirmasi dengan volume dan indikator lain!",
+  };
+
+  function getAIResponse(msg) {
+    const m = msg.toLowerCase();
+    if (m.includes('teknikal') || m.includes('analisa teknikal')) return aiResponses.teknikal;
+    if (m.includes('mulai') || m.includes('cara') || m.includes('trading saham') || m.includes('belajar')) return aiResponses.mulai;
+    if (m.includes('rekomendasi') || m.includes('market') || m.includes('hari ini') || m.includes('prediksi')) return aiResponses.rekomendasi;
+    if (m.includes('support') || m.includes('resistance') || m.includes('level')) return aiResponses.support;
+    return "Terima kasih pertanyaannya! 🙏<br><br>Untuk analisa market terkini, cek <a href='/blog/'>blog kami</a> yang update setiap hari. Atau tanya lebih spesifik tentang:<br>📊 Analisa teknikal<br>📈 Cara mulai trading<br>🔮 Rekomendasi market<br>📐 Support & resistance";
+  }
+
+  function addMsg(text, type) {
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + type;
+    div.innerHTML = text;
+    quickReplies.style.display = 'none';
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'typing-dots';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    div.id = 'typingIndicator';
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function hideTyping() {
+    const d = document.getElementById('typingIndicator');
+    if (d) d.remove();
+  }
+
+  function sendMsg() {
+    const text = input.value.trim();
+    if (!text) return;
+    addMsg(text, 'user');
+    input.value = '';
+    showTyping();
+    setTimeout(() => {
+      hideTyping();
+      addMsg(getAIResponse(text), 'bot');
+    }, 800 + Math.random() * 800);
+  }
+
+  function sendQuick(text) {
+    addMsg(text, 'user');
+    showTyping();
+    setTimeout(() => {
+      hideTyping();
+      addMsg(getAIResponse(text), 'bot');
+    }, 800 + Math.random() * 600);
+  }
+</script>
+
 </body>
 </html>
