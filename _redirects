@@ -1,3 +1,5 @@
-/sitemap.xml  /sitemap.xml  200
-/robots.txt   /robots.txt   200
-/*            /index.html   200
+/sitemap.xml          /sitemap.xml          200
+/robots.txt           /robots.txt           200
+/blog/market-ticker.html  /blog/market-ticker.html  200
+/blog/*               /blog/:splat          200
+/*                    /index.html            200
