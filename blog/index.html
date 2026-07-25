@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Trader Master — Analisa & Edukasi Trading</title>
+  <meta name="description" content="Artikel harian analisa trading saham IHSG, forex, dan gold. Dapatkan insight market terbaru setiap hari dari Trader Master.">
+  <meta name="keywords" content="blog trading, analisa saham, analisa forex, analisa gold, edukasi trading">
+  <meta property="og:title" content="Blog Trader Master — Analisa & Edukasi Trading">
+  <meta property="og:description" content="Artikel harian analisa trading saham IHSG, forex, dan gold.">
+  <meta property="og:type" content="website">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #1a56db; --primary-dark: #1e40af;
+      --bg: #f8fafc; --text: #1e293b; --text-muted: #64748b;
+      --white: #ffffff; --border: #e2e8f0; --radius: 12px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      color: var(--text); background: var(--bg); line-height: 1.7;
+    }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    nav {
+      background: rgba(255,255,255,0.95); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px);
+    }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+    .nav-link { color: var(--text-muted); text-decoration: none; font-weight: 500; }
+    .nav-link:hover { color: var(--primary); }
+    .blog-header { text-align: center; padding: 60px 20px 40px; }
+    .blog-header h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .blog-header p { color: var(--text-muted); font-size: 1.1rem; }
+    .post-list { padding-bottom: 60px; }
+    .post-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 28px; margin-bottom: 20px; box-shadow: var(--shadow); transition: transform 0.2s;
+    }
+    .post-card:hover { transform: translateY(-2px); }
+    .post-card h2 { font-size: 1.4rem; margin-bottom: 8px; }
+    .post-card h2 a { color: var(--text); text-decoration: none; }
+    .post-card h2 a:hover { color: var(--primary); }
+    .post-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+    .post-excerpt { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 14px; line-height: 1.6; }
+    .post-tag {
+      display: inline-block; background: #eef2ff; color: var(--primary);
+      padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+    }
+    .read-more { color: var(--primary); font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+    .read-more:hover { text-decoration: underline; }
+    footer {
+      background: var(--text); color: #94a3b8; padding: 40px 20px;
+      text-align: center; font-size: 0.85rem;
+    }
+    footer a { color: #cbd5e1; text-decoration: none; margin: 0 12px; }
+    footer a:hover { color: var(--white); }
+    footer .copyright { margin-top: 16px; }
+    @media (max-width: 600px) {
+      .blog-header h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="/" class="logo">📊 Trader Master</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+  </div>
+</nav>
+
+<header class="blog-header container">
+  <h1>📝 Blog Trader Master</h1>
+  <p>Analisa harian, edukasi trading, dan insight market — update tiap hari!</p>
+</header>
+
+<main class="container">
+  <div class="post-list" id="post-list">
+    <!-- Posts akan di-render via JS -->
+    <div class="post-card">
+      <span class="post-tag">Loading...</span>
+      <h2><a href="#">Memuat artikel...</a></h2>
+      <p class="post-meta">⏳</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>
+    <a href="/">Home</a>
+    <a href="/blog/">Blog</a>
+    <a href="/#pricing">Pricing</a>
+  </div>
+  <p class="copyright">© 2026 Trader Master. Trading mengandung risiko.</p>
+</footer>
+
+<script src="posts.js"></script>
+<script>
+  // Render blog list
+  fetch('posts.json')
+    .then(r => r.json())
+    .then(posts => {
+      const list = document.getElementById('post-list');
+      if (!posts.length) {
+        list.innerHTML = '<p style="text-align:center;color:#64748b">Belum ada artikel. Stay tuned!</p>';
+        return;
+      }
+      list.innerHTML = posts.map(p => `
+        <article class="post-card">
+          <span class="post-tag">${p.category}</span>
+          <h2><a href="posts/${p.slug}.html">${p.title}</a></h2>
+          <p class="post-meta">📅 ${p.date} · ⏱️ ${p.readTime} menit baca</p>
+          <p class="post-excerpt">${p.excerpt}</p>
+          <a href="posts/${p.slug}.html" class="read-more">Baca selengkapnya →</a>
+        </article>
+      `).join('');
+    })
+    .catch(() => {
+      document.getElementById('post-list').innerHTML = '<p style="text-align:center;color:#64748b">Gagal memuat artikel. Coba refresh halaman.</p>';
+    });
+</script>
+
+</body>
+</html>
