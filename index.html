@@ -701,6 +701,46 @@
 
     // ── LIVE MARKET DATA ──
     marketdata: "📊 <b>Market Update — 25 Juli 2026 (Real-Time)</b><br><br>₿ <b>BTC:</b> $64,091 📉 -1.80%<br>🥇 <b>Gold:</b> $4,071 📈 +0.51%<br>💵 <b>EUR/USD:</b> 1.1375 📉 -0.06%<br>💴 <b>USD/JPY:</b> 163.79 📈 +0.02%<br>🇮🇩 <b>USD/IDR:</b> 17,935 📈 +0.14%<br>🛢️ <b>Oil WTI:</b> $89.31 📉 -3.12%<br>📈 <b>S&P 500:</b> 7,412 📈 +0.05%<br>💻 <b>Nasdaq:</b> 24,976 📉 -0.64%<br><br>💡 <b>Highlight:</b> Oil anjlok -3.12% — katalis potensial untuk saham energi & inflasi! BTC melemah di $64K, Nasdaq terkoreksi. Baca analisa lengkap di <a href='/blog/'>blog</a>.",
+
+    // ── GENERAL / BASI-BASI / NATURAL CHAT ──
+    general: [
+      "Hei! 😊 Ada yang bisa saya bantu? Saya Trader Master — asisten AI spesialis trading. Bisa tanya soal analisa teknikal, fundamental, strategi, atau info market terkini. Santai aja, ngobrol aja dulu~",
+      "Wah, santai banget nih vibe-nya 😎 Saya di sini siap bantu kalau kamu ada pertanyaan soal trading. Atau kalau cuma mau ngobrol ringan juga boleh kok!",
+      "Hai hai! 🖐️ Lagi penasaran soal market, atau cuma mampir aja? Kalau ada yang pengen ditanya soal saham, crypto, forex, atau gold — gas aja!",
+      "Senang bisa ngobrol! 😄 Saya Trader Master, asisten trading yang bisa diajak diskusi soal apa aja — khususnya soal market & investasi. Ada yang lagi kamu pikirin?",
+      "Yoo! ✌️ Gimana kabarnya? Kalau lagi bingung soal trading atau pengen tau kondisi market hari ini, saya siap bantu jelasin."
+    ],
+
+    // ── ABOUT / SIAPA DIRI ──
+    about: [
+      "Saya <b>Trader Master</b> — asisten AI spesialis trading & investasi! 📊<br><br>Dibuat untuk bantu trader Indonesia (pemula maupun pro) belajar dan ngambil keputusan trading yang lebih baik.<br><br>🧠 Yang saya bisa:<br>• Jelaskan analisa teknikal & fundamental<br>• Info saham IHSG, forex, gold, crypto<br>• Strategi trading & risk management<br>• Market update real-time<br>• Psikologi & mindset trader<br><br>Nggak bisa ngasih saran keuangan ya — semua keputusan tetap di tangan kamu!",
+      "Perkenalkan, saya <b>Trader Master</b>! 👋 Asisten trading Indonesia, hadir buat bantu kamu paham dunia trading.<br><br>Dari analisa chart, fundamental, sampai psikologi trading — saya siap jelasin dengan bahasa yang gampang dimengerti. Bukan robot kaku kok, santai aja! 😄",
+      "Saya Trader Master, AI companion buat trader Indonesia! Dibangun biar belajar trading nggak ngebosenin — obrolan santai tapi informatif. Tanya apa aja soal market, gas!"
+    ],
+
+    // ── FUN / HUMOR ──
+    fun: [
+      "Haha 😂 Pertanyaan random nih! Tapi saya suka vibes-nya. Trading itu serius, tapi kita nggak harus serius terus kan~ Ada yang bisa saya bantu soal market?",
+      "Wkwkwk 😆 Oke, oke. Saya ngerti kok kadang trader butuh hiburan juga. Market merah, hati tetep adem ya! Mau bahas apa nih?",
+      "Hmm... 🤔 pertanyaan ini lebih susah dari prediksi market! Tapi serius deh, kalau ada yang mau ditanya soal trading — saya di sini.",
+      "Hahaha 😝 Saya bukan ChatGPT biasa — saya Trader Master! Spesialis trading, tapi bisa diajak ngobrol santai juga. Gimana, ada yang pengen didiskusiin?"
+    ],
+
+    // ── THANK YOU / APPRECIATION ──
+    thanks: [
+      "Sama-sama! 😊 Senang bisa bantu. Kalau ada pertanyaan lagi, langsung aja ya!",
+      "You're welcome! 🙏 Jangan ragu tanya lagi kalau butuh bantuan soal trading.",
+      "Makasih juga udah ngobrol! 😄 Ada lagi yang mau ditanya?",
+      "Sama-sama bro/sis! 🤝 Trading is a journey — saya di sini buat nemenin."
+    ],
+
+    // ── GOODBYE ──
+    goodbye: [
+      "Sampai jumpa! 👋 Sukses terus tradingnya. Jangan lupa cek <a href='/blog/'>blog</a> untuk analisa terbaru!",
+      "Dadah! 😊 Hati-hati ya. Kalau butuh bantuan, balik lagi aja. Saya di sini 24/7!",
+      "Okedeh, sampai ketemu lagi! 🖐️ Semoga hoki di market!",
+      "Bye! 👋 Jangan lupa: disiplin > emosi. See you next time!"
+    ]
   };
 
   // ── FUZZY MATCHING ENGINE ──
@@ -741,6 +781,21 @@
     { keys: ['komunitas','sinyal','signal','telegram','grup','discord','gabung','join','daftar komunitas'], cat: 'komunitas' },
     // Rekomendasi/update
     { keys: ['rekomendasi','rekomendasi hari ini','market','hari ini','prediksi','outlook','prospek','analisa terbaru','update','berita','news','terkini','sekarang','recent','market update','data market','market data','harga sekarang','live','real-time','realtime','data','quote','harga'], cat: 'marketdata' },
+    
+    // ── GENERAL / NATURAL CHAT ──
+    { keys: ['kabar','gimana','apa kabar','sehat','baik','oke','okeh','sip','siap','gasken','gas','gaskeun','mantap','woke','yoi','betul','setuju','nice','keren','bagus','boleh juga','waw','woi','eh','bro','sis','sob','gan','brow','cu','ngobrol','bicara','chat','diskusi','curhat','random','iseng','coba','test','tes','coba dong','lagi apa','kamu','lo','lu','anda','situ','entah','gatau','bingung','pusing','males'], cat: 'general' },
+    
+    // About
+    { keys: ['siapa','siapa kamu','siapa lo','siapa lu','kamu siapa','nama','siapa nama','perkenalan','kenalan','diri kamu','diri lo','info','profile','about','tentang','tentang kamu','lo siapa','lu siapa','ini siapa','bot apa','ai apa','asisten apa','kamu robot','kamu manusia','bisa apa','kamu bisa apa','fitur','apa aja yang bisa','bisa bantu apa'], cat: 'about' },
+    
+    // Fun
+    { keys: ['lucu','lawak','humor','joke','canda','banyol','garing','ketawa','haha','wkwk','hehe','wkwkwk','hahaha','kocak','ngakak','receh','random','aneh','gila','apaan','serius','santai','fun','ngobrol santai','ngobrol aja','bareng','temenin','kesepian','bosan','bete','gabut'], cat: 'fun' },
+    
+    // Thank you
+    { keys: ['makasih','terima kasih','thanks','thx','tq','tengkyu','thank you','ty','makasi','suwun','matur nuwun','nuhun','arigato','good','keren','mantap','ok makasih','makasih ya','thank','berguna','membantu','membatu','ngebantu'], cat: 'thanks' },
+    
+    // Goodbye
+    { keys: ['bye','dah','dadah','sampai jumpa','sampai ketemu','pamit','pulang','keluar','off','cabut','pergi','selamat tinggal','selamat jalan','see you','goodbye','bye bye','babay','daa','dada'], cat: 'goodbye' },
   ];
 
   let lastCat = null; // avoid repeating same category
@@ -782,11 +837,16 @@
       return knowledge[matched];
     }
 
-    // Fallback: rotate through topics
+    // Fallback: natural conversational responses
     lastCat = null;
     const fallbacks = [
-      "Pertanyaan bagus! 🙏<br><br>Untuk analisa market terkini, cek <a href='/blog/'>blog Trader Master</a> — update setiap hari. Kamu bisa tanya soal:<br>📊 Analisa teknikal & fundamental<br>📈 Cara mulai trading (saham, forex, gold, crypto)<br>🛡️ Risk management & psikologi trading<br>🔧 Indikator & strategi trading<br><br>Atau ketik <b>'glosarium'</b> untuk daftar istilah trading!",
-      "Saya belum punya jawaban spesifik untuk itu 😅<br><br>Tapi kamu bisa tanya tentang:<br>📊 <b>Teknikal</b> — analisa teknikal & indikator<br>🏢 <b>Fundamental</b> — analisa fundamental<br>🛡️ <b>Risk</b> — manajemen risiko<br>🧠 <b>Psikologi</b> — psikologi trading<br>📈 <b>Mulai</b> — cara mulai trading<br>📐 <b>Support/Resistance</b> — level kunci<br>💱 <b>Forex / Gold / Crypto / IHSG</b> — info instrumen spesifik"
+      "Hmm, menarik nih pertanyaannya! 🤔<br><br>Sayangnya aku belum punya jawaban spesifik untuk itu. Tapi aku jago soal trading lho — dari analisa teknikal, cara mulai, sampai psikologi trading. Mau coba tanya yang lain?",
+      "Waduh, itu di luar keahlianku untuk saat ini 😅<br><br>Aku spesialisasinya di dunia trading & investasi. Kamu bisa tanya:<br>📊 Analisa teknikal & indikator<br>📈 Cara mulai trading (saham/forex/crypto/gold)<br>🛡️ Risk management<br>🧠 Psikologi & mindset trader<br>📰 Market update terkini<br><br>Atau... kalau cuma pengen ngobrol santai juga boleh kok!",
+      "Pertanyaan bagus! Tapi jujur, aku lebih jago kalau udah masuk ranah trading 😄<br><br>Coba deh tanya soal analisa teknikal, strategi, atau info market — aku bisa jelasin dengan detail. Atau cek <a href='/blog/'>blog</a> kami untuk analisa harian!",
+      "Hehe, that's a tough one! 🙈<br><br>Kemampuanku memang masih terbatas di dunia trading untuk saat ini. Tapi aku terus belajar kok! Tanya aja soal market atau trading — dijamin aku bisa bantu. Gimana, ada yang pengen didiskusiin?",
+      "Nah, ini pertanyaan yang bikin mikir... 😅<br><br>Untuk sekarang, keahlianku fokus di analisa trading & edukasi market. Mulai dari teknikal, fundamental, cara entry, sampai manajemen risiko — semuanya aku kuasai. Mau coba topik yang lain? Atau langsung cek <a href='/blog/'>blog Trader Master</a> aja!",
+      "Wkwk, random banget! 😆 Tapi oke, aku hargai kejujuran ini.<br><br>Sayangnya aku belum bisa jawab di luar ranah trading & investasi. Tapi kalau kamu penasaran soal market hari ini, cara analisa saham, atau strategi trading — langsung aja tanya!",
+      "Hmm, good question actually! 🤷<br><br>Tapi aku mesti jujur: spesialisasiku baru di dunia trading. Kalau ada yang mau ditanya soal saham, forex, crypto, gold, atau analisa teknikal — aku siap! Untuk yang lain... mungkin next time ya 😄"
     ];
     return fallbacks[Math.floor(Math.random() * fallbacks.length)];
   }
